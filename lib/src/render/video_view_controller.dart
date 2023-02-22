@@ -4,6 +4,8 @@ import 'package:agora_rtc_engine/src/agora_rtc_engine_ex.dart';
 import 'package:agora_rtc_engine/src/impl/video_view_controller_impl.dart';
 import 'package:meta/meta.dart';
 
+typedef CreateViewCallBack = void Function(int viewId);
+
 /// A AgoraVideoView controller for rendering local and remote video.
 /// On different platforms, the default view corresponding to this class is different:Android: . If you want to use , set the useAndroidSurfaceView property to true.iOS: . If you want to use Flutter Texture, set the useFlutterTexture property to true.macOS and Windows: .
 abstract class VideoViewControllerBase {
@@ -21,6 +23,8 @@ abstract class VideoViewControllerBase {
 
   /// Whether to use Android SurfaceView to render video:true: Use Android SurfaceView to render video.false: Do not use Android SurfaceView to render video.Android SurfaceView applies to Android platform only.
   bool get useAndroidSurfaceView;
+
+  CreateViewCallBack? get createViewCallBack;
 
   @internal
   void setTextureId(int textureId);
@@ -61,7 +65,8 @@ class VideoViewController
       {required this.rtcEngine,
       required this.canvas,
       this.useFlutterTexture = false,
-      this.useAndroidSurfaceView = false})
+      this.useAndroidSurfaceView = false,
+      this.createViewCallBack})
       : connection = const RtcConnection();
 
   /// @nodoc
@@ -70,7 +75,8 @@ class VideoViewController
       required this.canvas,
       required this.connection,
       this.useFlutterTexture = false,
-      this.useAndroidSurfaceView = false})
+      this.useAndroidSurfaceView = false,
+      this.createViewCallBack})
       : assert(connection.channelId != null);
 
   @override
@@ -87,6 +93,9 @@ class VideoViewController
 
   @override
   final bool useAndroidSurfaceView;
+
+  @override
+  final CreateViewCallBack? createViewCallBack;
 
   @protected
   @override

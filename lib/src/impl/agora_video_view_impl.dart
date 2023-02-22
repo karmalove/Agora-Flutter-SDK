@@ -111,6 +111,7 @@ class _AgoraRtcRenderPlatformViewState extends State<AgoraRtcRenderPlatformView>
     _nativeViewIntPtr =
         (await getMethodChannel()!.invokeMethod<int>('getNativeViewPtr'))!;
     if (!mounted) return;
+    widget.controller.createViewCallBack?.call(_nativeViewIntPtr);
     widget.controller.setupView(_nativeViewIntPtr);
   }
 

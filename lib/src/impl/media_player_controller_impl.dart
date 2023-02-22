@@ -9,6 +9,7 @@ import 'package:agora_rtc_engine/src/impl/agora_rtc_engine_impl.dart';
 import 'package:agora_rtc_engine/src/impl/media_player_impl.dart';
 import 'package:agora_rtc_engine/src/impl/video_view_controller_impl.dart';
 import 'package:agora_rtc_engine/src/render/media_player_controller.dart';
+import 'package:agora_rtc_engine/src/render/video_view_controller.dart';
 
 class MediaPlayerControllerImpl
     with VideoViewControllerBaseMixin
@@ -359,4 +360,8 @@ class MediaPlayerControllerImpl
       await super.disposeRender();
     }
   }
+
+  @override
+  // TODO: implement createViewCallBack
+  CreateViewCallBack? get createViewCallBack => throw UnimplementedError();
 }

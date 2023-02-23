@@ -77,7 +77,10 @@ mixin VideoViewControllerBaseMixin implements VideoViewControllerBase {
       mediaPlayerId: canvas.mediaPlayerId,
     );
     if (canvas.uid != 0) {
-      await rtcEngine.setupRemoteVideo(videoCanvas);
+      if (connection != null) {
+        await (rtcEngine as RtcEngineEx)
+            .setupRemoteVideoEx(canvas: videoCanvas, connection: connection!);
+      }
     } else {
       await rtcEngine.setupLocalVideo(videoCanvas);
     }
